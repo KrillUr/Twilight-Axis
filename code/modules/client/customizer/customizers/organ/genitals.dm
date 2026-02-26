@@ -59,8 +59,10 @@
 		/datum/customizer_choice/organ/penis/human_anthro,
 		/datum/customizer_choice/organ/penis/knotted,
 		/datum/customizer_choice/organ/penis/equine,
+		/datum/customizer_choice/organ/penis/equine_knotted,
 		/datum/customizer_choice/organ/penis/tapered_mammal,
 		/datum/customizer_choice/organ/penis/tapered,
+		/datum/customizer_choice/organ/penis/tapered_knot,
 		/datum/customizer_choice/organ/penis/tapered_double,
 		/datum/customizer_choice/organ/penis/tapered_double_knot,
 		/datum/customizer_choice/organ/penis/barbed,
@@ -85,6 +87,7 @@
 	customizer_choices = list(
 		/datum/customizer_choice/organ/penis/human_anthro,
 		/datum/customizer_choice/organ/penis/tapered,
+		/datum/customizer_choice/organ/penis/tapered_knot,
 		/datum/customizer_choice/organ/penis/tapered_double,
 		/datum/customizer_choice/organ/penis/tapered_double_knot,
 		)
@@ -93,6 +96,7 @@
 	customizer_choices = list(
 		/datum/customizer_choice/organ/penis/human_anthro,
 		/datum/customizer_choice/organ/penis/equine,
+		/datum/customizer_choice/organ/penis/equine_knotted,
 		)
 
 /datum/customizer_choice/organ/penis/human
