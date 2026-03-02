@@ -6,7 +6,7 @@
 	var/dat = {"
 		<b>Speech Modes (Prefix):</b><br>
 		no prefix - Normal speech, heard within 7 tiles.<br>
-		<b># or №</b> - Whisper. Quiet speech, only heard within 1 tile. Others can see you whispering.<br>
+		<b>+</b> - Whisper. Quiet speech, only heard within 1 tile. Others can see you whispering.<br>
 		<b>%</b> - Singing. Wraps your message in musical notes.<br>
 		<br>
 		<b>Custom Emotes:</b><br>
@@ -17,7 +17,7 @@
 		<b>Subtle</b> - Type <b>@your action here</b>. Can be used for both Me and Me (Big) Only seen by nearby targets you select.<br>
 		<br>
 		<b>Text Formatting:</b><br>
-		<b>+text+</b> makes text <b>bold</b>.<br>
+		<b>№text№ or #text#</b> makes text <b>bold</b>.<br>
 		<b>|text|</b> makes text <i>italic</i>.<br>
 		<b>_text_</b> makes text <u>underlined</u>.<br>
 		<b>$n</b> - Places your character's name where you want it in an emote instead of at the start. e.g. <i>With a thud, $n falls over.</i><br>
