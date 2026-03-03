@@ -23,16 +23,6 @@
 	desc = "Dead flesh stares through your skull. Your vision sharpens in darkness, but something vital has been lost."
 	icon_state = "debuff"
 
-/datum/component/goblin_eye_implant_examine
-
-/datum/component/goblin_eye_implant_examine/RegisterWithParent()
-	. = ..()
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
-
-/datum/component/goblin_eye_implant_examine/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_PARENT_EXAMINE)
-	return ..()
-
 /mob/living/get_villain_text(mob/examiner)
 	. = ..()
 
