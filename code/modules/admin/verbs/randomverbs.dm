@@ -437,10 +437,36 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!input)
 		return
 
+	var/list/sound_options = list("Bell(Base)", "Alert", "HorrorWhispers", "TerribleHorn", "EvilLaugh", "NecromancerLaugh", "Monsters", "OtavaComing", "Custom(file)")
+	var/sound_choice = input(src, "Какой звук?", "Announcement Sound", "Bell(Base)") as null|anything in sound_options
+	if(!sound_choice)
+		return
+
+	var/announce_sound = 'sound/misc/bell.ogg'
+	switch(sound_choice)
+		if("Alert")
+			announce_sound = 'sound/misc/alert.ogg'
+		if("HorrorWhispers")
+			announce_sound = 'sound/misc/carriage3.ogg'
+		if("TerribleHorn")
+			announce_sound = 'sound/misc/carriage4.ogg'
+		if("EvilLaugh")
+			announce_sound = 'sound/misc/HL (1).ogg'
+		if("NecromancerLaugh")
+			announce_sound = 'sound/misc/zizo.ogg'
+		if("Monsters")
+			announce_sound = 'sound/misc/kybraxor.ogg'
+		if("OtavaComing")
+			announce_sound = 'sound/misc/otavanlament.ogg'
+		if("Custom(file)")
+			announce_sound = input(src, "Выбери звуковой файл", "Custom Announcement Sound") as sound|null
+			if(!announce_sound)
+				return
+
 	var/confirm = alert(src, "Do you want to announce the contents of the report to the crew?", "Announce", "Yes", "No", "Cancel")
 	switch(confirm)
 		if("Yes")
-			priority_announce(input, "<span class='reallybig'>[html_encode(title)]</span>", 'sound/misc/bell.ogg', sender = usr)
+			priority_announce(input, "<span class='reallybig'>[html_encode(title)]</span>", announce_sound, sender = usr)
 		if("Cancel")
 			return
 
