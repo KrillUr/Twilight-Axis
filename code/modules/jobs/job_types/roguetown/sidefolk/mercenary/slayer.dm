@@ -172,7 +172,6 @@
 	sound = 'sound/magic/axedance.ogg'
 
 /obj/effect/proc_holder/spell/self/axedance/cast(mob/living/user)
-	var/old_recharge_time = recharge_time
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		recharge_time = round(initial(recharge_time) * H.get_trophy_rage_cooldown_mult())
@@ -180,7 +179,6 @@
 		recharge_time = initial(recharge_time)
 
 	user.apply_status_effect(/datum/status_effect/buff/axedance)
-	recharge_time = old_recharge_time
 	return TRUE
 
 #define AXEDANCE_FILTER "axedance_red"

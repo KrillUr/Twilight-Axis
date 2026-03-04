@@ -132,7 +132,8 @@
 			owner.trophy_rage_cooldown_mult = 1
 
 /datum/component/trophy_hunter/proc/get_armor_bonus_for_zone(def_zone, d_type)
-	if(d_type != "blunt" && d_type != "slash" && d_type != "stab" && d_type != "pierce")
+	var/list/valid_damage_types = list("blunt", "slash", "stab", "pierce")
+	if(!(d_type in valid_damage_types))
 		return 0
 
 	var/datum/trophy_effect/E = applied_effects[TROPHY_GROUP_ARMOR]
