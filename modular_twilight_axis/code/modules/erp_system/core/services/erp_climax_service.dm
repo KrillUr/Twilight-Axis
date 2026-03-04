@@ -39,7 +39,7 @@
 				tpl = best.action.message_climax_passive
 
 			if(tpl)
-				text = SSerp.action_message_renderer.build_climax_message(tpl, best)
+				text = SSerp.action_message_renderer.build_message(tpl, best, allow_knot_suffix = FALSE)
 
 		if(text)
 			controller.send_message(controller.spanify_scene_climax(text), best)

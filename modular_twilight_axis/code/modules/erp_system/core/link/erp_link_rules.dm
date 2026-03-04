@@ -50,5 +50,17 @@
 	if(!istype(H))
 		return FALSE
 
+	var/datum/erp_sex_organ/penis/P = null
+	if(istype(L.init_organ, /datum/erp_sex_organ/penis))
+		P = L.init_organ
+	else if(istype(L.target_organ, /datum/erp_sex_organ/penis))
+		P = L.target_organ
+
+	if(!P)
+		return FALSE
+
+	if(!P.have_knot)
+		return FALSE
+
 	C.knot_d?.get_penis_knot_ui_state(H)
 	return C.do_knot_action

@@ -2,14 +2,15 @@
 	var/static/regex/ERP_REGEX_CONDITIONAL = regex(@"\{(\w+)\?([^:}]*):([^}]*)\}")
 
 /// Builds a final message from a template by applying conditionals and keyword replacements.
-/datum/erp_action_message_renderer/proc/build_message(template, datum/erp_sex_link/L)
+/datum/erp_action_message_renderer/proc/build_message(template, datum/erp_sex_link/L, allow_knot_suffix = FALSE)
 	if(!template || !L || !L.action)
 		return null
 
 	var/text = "[template]"
 	text = apply_conditionals(text, L)
 	text = replace_keywords(text, L)
-	text = replace_knot_scene_keywords(text, L)
+	if(allow_knot_suffix)
+		text = replace_knot_scene_keywords(text, L)
 	return text
 
 /// Applies conditional segments like {key?YES:NO} to a text using resolve_condition().
@@ -62,12 +63,3 @@
 
 	return "[text] по самый узел"
 
-/// Builds a final message for climax templates (never appends knot scene suffix).
-/datum/erp_action_message_renderer/proc/build_climax_message(template, datum/erp_sex_link/L)
-	if(!template || !L || !L.action)
-		return null
-
-	var/text = "[template]"
-	text = apply_conditionals(text, L)
-	text = replace_keywords(text, L)
-	return text
