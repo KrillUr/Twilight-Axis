@@ -144,7 +144,6 @@
 	for(var/client/C in GLOB.clients)
 		if(C.mob)
 			SSdroning.kill_droning(C)
-
 			switch(round_end_music)
 				if(0)
 					C.mob.playsound_local(C.mob, 'sound/music/roundend.ogg', 100, FALSE)
