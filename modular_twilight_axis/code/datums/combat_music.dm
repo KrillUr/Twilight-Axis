@@ -122,7 +122,7 @@
 	name = "Good Ol' Knight"
 	desc = "Welcome back, classic bandit'o knight."
 	shortname = "OlNewKnight"
-	credits = "He was with us all this time..."
+	credits = "That one, was with us all this time too..."
 	musicpath = list('modular_twilight_axis/sound/music/combat_bandit2.ogg')
 
 /datum/combat_music/theclueless
