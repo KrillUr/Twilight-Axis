@@ -13,10 +13,15 @@
 #define RONIN_GLOW_SIZE_BOUND      1.5
 #define RONIN_GLOW_SIZE_PREP       2
 
-/proc/ronin_on_dodge_success(mob/living/defender, mob/living/attacker)
+/proc/ronin_on_parry_success(mob/living/defender, mob/living/attacker)
 	if(!isliving(defender))
 		return
-	SEND_SIGNAL(defender, COMSIG_MOB_DODGE_SUCCESS, attacker)
+	SEND_SIGNAL(defender, COMSIG_MOB_PARRY_SUCCESS, attacker)
+
+/proc/ronin_parry_override(mob/living/defender, intenty, mob/living/attacker)
+	var/list/parry_query = list("weapon" = null,"intent" = intenty,"attacker" = attacker)
+	SEND_SIGNAL(defender, COMSIG_MOB_QUERY_PARRY_WEAPON, parry_query)
+	return parry_query["weapon"]
 
 /datum/component/combo_core/ronin
 	parent_type = /datum/component/combo_core
@@ -31,7 +36,6 @@
 	var/pending_hit_input = null
 
 	var/list/base_force_cache = list()
-	var/list/base_ap_cache = list()
 
 	var/in_counter_stance = FALSE
 	var/counter_expires_at = 0
@@ -43,7 +47,7 @@
 
 	/// Tanuki (minor): +4 PER на 4 успешных удара
 	var/tanuki_per_hits_left = 0
-	var/elder_tanuki_riposte_hits_left = 0
+	var/elder_tanuki_riposte_ready = FALSE
 
 /datum/component/combo_core/ronin/Initialize(_combo_window, _max_history)
 	. = ..(_combo_window, _max_history)
@@ -54,7 +58,8 @@
 
 	RegisterSignal(owner, COMSIG_ATTACK_TRY_CONSUME, PROC_REF(_sig_try_consume), override = TRUE)
 	RegisterSignal(owner, COMSIG_COMBO_CORE_REGISTER_INPUT, PROC_REF(_sig_register_input), override = TRUE)
-	RegisterSignal(owner, COMSIG_MOB_DODGE_SUCCESS, PROC_REF(_sig_dodge_success), override = TRUE)
+	RegisterSignal(owner, COMSIG_MOB_QUERY_PARRY_WEAPON, PROC_REF(_sig_query_parry_weapon))
+	RegisterSignal(owner, COMSIG_MOB_PARRY_SUCCESS, PROC_REF(_sig_dodge_success), override = TRUE)
 
 	GrantSpells()
 	return .
@@ -75,7 +80,8 @@
 	if(owner)
 		UnregisterSignal(owner, COMSIG_ATTACK_TRY_CONSUME)
 		UnregisterSignal(owner, COMSIG_COMBO_CORE_REGISTER_INPUT)
-		UnregisterSignal(owner, COMSIG_MOB_DODGE_SUCCESS)
+		UnregisterSignal(owner, COMSIG_MOB_PARRY_SUCCESS)
+		UnregisterSignal(owner, COMSIG_MOB_QUERY_PARRY_WEAPON)
 		RevokeSpells()
 
 	RestoreAllBoundForces()
@@ -200,7 +206,7 @@
 /datum/component/combo_core/ronin/proc/_GetBladeForce()
 	UpdateActiveBlade()
 	if(active_blade)
-		return max(0, active_blade.force)
+		return max(0, active_blade.force_dynamic)
 	return 0
 
 /datum/component/combo_core/ronin/proc/_GetAimDirTo(atom/A)
@@ -231,13 +237,26 @@
 /datum/component/combo_core/ronin/proc/_ApplyBurnFromForce(mob/living/target, zone, mult = 0.5)
 	if(!target)
 		return
+
 	var/force = _GetBladeForce()
 	if(force <= 0)
 		return
+
 	var/burn = max(1, round(force * mult))
+	if(iscarbon(target))
+		var/mob/living/carbon/C = target
+		var/obj/item/bodypart/BP = C.get_bodypart(zone)
+		if(!BP)
+			BP = C.get_bodypart(BODY_ZONE_CHEST)
+		if(!BP)
+			return
+
+		target.apply_damage(burn, BURN, BP, target.run_armor_check(BP, "fire"))
+		return
+
 	target.adjustFireLoss(burn)
 
-/datum/component/combo_core/ronin/proc/_ApplyBleed(mob/living/target, zone)
+/datum/component/combo_core/ronin/proc/_ApplyBleed(mob/living/target, zone, dam_override = null)
 	if(!iscarbon(target))
 		return
 
@@ -251,7 +270,31 @@
 	if(!BP.can_bloody_wound())
 		return
 
-	BP.add_wound(/datum/wound/dynamic/slash, silent = TRUE)
+	var/force_dynamic = isnull(dam_override) ? _GetBladeForce() : dam_override
+	if(force_dynamic <= 0)
+		return
+
+	var/list/armor_data = _get_slash_armor_data(C, zone)
+	if(!armor_data["can_bleed"])
+		return
+
+	var/datum/wound/dynamic/slash/existing = null
+	for(var/datum/wound/W as anything in BP.wounds)
+		if(istype(W, /datum/wound/dynamic/slash))
+			existing = W
+			break
+
+	if(existing)
+		existing.upgrade(force_dynamic, armor_data["armor"], armor_data["exposed"])
+		return
+
+	var/datum/wound/dynamic/slash/new_wound = new
+	if(!new_wound.can_apply_to_bodypart(BP))
+		qdel(new_wound)
+		return
+
+	new_wound.apply_to_bodypart(BP, silent = TRUE)
+	new_wound.upgrade(force_dynamic, armor_data["armor"], armor_data["exposed"])
 
 /datum/component/combo_core/ronin/proc/_ApplyArmorWearForward(mult = 0.5, tiles = 2, zone = BODY_ZONE_CHEST)
 	if(!owner)
@@ -339,6 +382,7 @@
 /datum/component/combo_core/ronin/proc/_RonSlashOnTurf(turf/T, force, zone)
 	if(!T)
 		return
+
 	var/mob/living/victim = null
 	for(var/mob/living/L in T)
 		if(L == owner)
@@ -355,11 +399,20 @@
 		var/dmg = max(1, round(force * 0.35))
 		victim.adjustBruteLoss(dmg)
 
-	_ApplyBleed(victim, zone)
+	_ApplyBleed(victim, zone, max(1, round(force * 0.7)))
 
-// ----------------------------------------------------
-// Tanuki: PER buff counters
-// ----------------------------------------------------
+/datum/component/combo_core/ronin/proc/_sig_query_parry_weapon(datum/source, list/parry_query)
+	SIGNAL_HANDLER
+
+	if(!owner || !islist(parry_query))
+		return FALSE
+
+	var/obj/item/rogueweapon/W = GetParrySheathedBlade()
+	if(!W)
+		return FALSE
+
+	parry_query["weapon"] = W
+	return TRUE
 
 /datum/component/combo_core/ronin/proc/_StartTanukiPerBuff()
 	if(!owner)
@@ -385,22 +438,17 @@
 		_EndTanukiPerBuff()
 
 /datum/component/combo_core/ronin/proc/_StartElderTanukiRiposte()
-	elder_tanuki_riposte_hits_left = 4
+	elder_tanuki_riposte_ready = TRUE
 
 /datum/component/combo_core/ronin/proc/_HandleElderTanukiRiposteOnHit(mob/living/target, zone)
-	if(elder_tanuki_riposte_hits_left <= 0)
-		return
-	elder_tanuki_riposte_hits_left--
-	if(elder_tanuki_riposte_hits_left > 0)
+	if(!owner || !target || !elder_tanuki_riposte_ready)
 		return
 
-	elder_tanuki_riposte_hits_left = 0
-
-	if(!owner || !target)
-		return
+	elder_tanuki_riposte_ready = FALSE
 
 	var/force = _GetBladeForce()
 	var/extra = max(1, round(force * 0.5))
+
 	target.adjustBruteLoss(extra)
 	target.Stun(1 SECONDS)
 	target.OffBalance(2 SECONDS)
@@ -427,26 +475,20 @@
 	if(!islist(base_force_cache))
 		base_force_cache = list()
 	if(isnull(base_force_cache[W]))
-		base_force_cache[W] = W.force
-	if(!islist(base_ap_cache))
-		base_ap_cache = list()
-	if(isnull(base_ap_cache[W]))
-		base_ap_cache[W] = W.armor_penetration
+		base_force_cache[W] = W.force_dynamic
 
 /datum/component/combo_core/ronin/proc/ApplyBoundForceMultiplier()
 	if(!bound_blades || !bound_blades.len)
 		return
 
 	var/mult = GetStackMultiplier()
-
 	for(var/obj/item/rogueweapon/W as anything in bound_blades)
 		if(!W || QDELETED(W))
 			continue
 		CacheBaseForce(W)
 		var/base = base_force_cache[W]
 		if(isnum(base))
-			W.force = round(base * mult, 1)
-			W.armor_penetration = round(base_ap_cache[W] * mult, 1)
+			W.force_dynamic = round(base * mult, 1)
 
 /datum/component/combo_core/ronin/proc/RestoreAllBoundForces()
 	if(!islist(base_force_cache))
@@ -456,7 +498,7 @@
 			continue
 		var/base = base_force_cache[W]
 		if(isnum(base))
-			W.force = base
+			W.force_dynamic = base
 
 /datum/component/combo_core/ronin/proc/UpdateActiveBlade()
 	active_blade = null
@@ -567,7 +609,7 @@
 				ApplyBoundForceMultiplier()
 
 		if("kitsune")
-			_ApplyArmorWearForward(0.5, 2, zone)
+			_ApplyArmorWearForward(1.2, 2, zone)
 
 		if("tanuki")
 			_StartElderTanukiRiposte()
@@ -601,22 +643,21 @@
 
 /datum/component/combo_core/ronin/proc/_sig_try_consume(datum/source, atom/target_atom, zone)
 	SIGNAL_HANDLER
+
 	if(ronin_stacks > 0)
-		ronin_stacks--
-		ApplyBoundForceMultiplier()
+		_set_ronin_stacks(ronin_stacks - 1)
 
 	if(tanuki_per_hits_left > 0)
 		tanuki_per_hits_left--
 		if(tanuki_per_hits_left <= 0)
 			_EndTanukiPerBuff()
 
-	if(elder_tanuki_riposte_hits_left > 0)
-		elder_tanuki_riposte_hits_left--
-		if(elder_tanuki_riposte_hits_left <= 0)
-			elder_tanuki_riposte_hits_left = 0
-			var/mob/living/L = target_atom
-			if(isliving(L))
-				_HandleElderTanukiRiposteOnHit(L, zone)
+	if(elder_tanuki_riposte_ready)
+		var/mob/living/L = target_atom
+		if(isliving(L))
+			_HandleElderTanukiRiposteOnHit(L, zone)
+		else
+			elder_tanuki_riposte_ready = FALSE
 
 	return 0
 
@@ -817,7 +858,7 @@
 		return
 	var/base = base_force_cache[W]
 	if(isnum(base))
-		W.force = base
+		W.force_dynamic = base
 	base_force_cache -= W
 
 /datum/component/combo_core/ronin/proc/ShowMinorComboIcon(mob/living/target, rule_id)
@@ -879,5 +920,75 @@
 			continue
 		if(H.sheathed == W)
 			return I
+
+	return null
+
+/datum/component/combo_core/ronin/proc/_zone_to_cover_flag(zone)
+	switch(zone)
+		if(BODY_ZONE_HEAD)
+			return HEAD
+		if(BODY_ZONE_CHEST)
+			return CHEST
+		if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+			return ARMS
+		if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+			return LEGS
+	return CHEST
+
+/datum/component/combo_core/ronin/proc/_get_slash_armor_data(mob/living/carbon/target, zone)
+	. = list(
+		"can_bleed" = TRUE,
+		"armor" = 0,
+		"exposed" = TRUE,
+	)
+
+	if(!target)
+		return .
+
+	var/cover_flag
+	switch(zone)
+		if(BODY_ZONE_HEAD)
+			cover_flag = HEAD
+		if(BODY_ZONE_CHEST)
+			cover_flag = CHEST
+		if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+			cover_flag = ARMS
+		if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+			cover_flag = LEGS
+		else
+			cover_flag = CHEST
+
+	for(var/obj/item/clothing/C in target.contents)
+		if(C.loc != target)
+			continue
+		if(!(C.body_parts_covered & cover_flag))
+			continue
+		if(!C.armor)
+			continue
+
+		.["exposed"] = FALSE
+
+		var/rating = C.armor.getRating("slash")
+		if(isnum(rating))
+			.["armor"] = rating
+
+		var/integrity = C.obj_integrity
+		if(!isnum(integrity))
+			integrity = 0
+
+		.["can_bleed"] = (integrity < (_GetBladeForce() * 2))
+		return .
+
+	return .
+
+/datum/component/combo_core/ronin/proc/GetParrySheathedBlade()
+	if(!owner || !bound_blades?.len)
+		return null
+
+	for(var/obj/item/rogueweapon/W as anything in bound_blades)
+		if(!W || QDELETED(W))
+			continue
+		if(GetBladeHolster(W))
+			return W
 
 	return null

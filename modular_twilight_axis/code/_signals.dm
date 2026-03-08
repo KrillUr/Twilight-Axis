@@ -39,5 +39,6 @@
 
 //RONIN - BEGIN//
 #define COMSIG_LIVING_TAKE_DAMAGE "living_take_damage"
-#define COMSIG_MOB_DODGE_SUCCESS "mob_dodge_success"
+#define COMSIG_MOB_PARRY_SUCCESS "mob_dodge_success"
+#define COMSIG_MOB_QUERY_PARRY_WEAPON "mob_query_parry_weapon"
 //RONIN - END//
