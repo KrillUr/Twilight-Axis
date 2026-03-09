@@ -45,6 +45,14 @@
 			"dmb": "${workspaceFolder}/${command:CurrentDMB}",
 			"dreamDaemon": true
 		},
+        {
+			"type": "byond",
+			"request": "launch",
+			"name": "Launch DreamDaemon (Low Memory Mode - No Dungeons)",
+            "preLaunchTask": "Build All (Low Memory Mode - No Dungeons)",
+			"dmb": "${workspaceFolder}/${command:CurrentDMB}",
+			"dreamDaemon": true
+		},
 		{
 			"type": "byond",
 			"request": "launch",
