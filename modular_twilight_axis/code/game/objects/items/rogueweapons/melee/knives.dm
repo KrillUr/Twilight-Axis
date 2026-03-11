@@ -116,3 +116,16 @@
 
 /datum/intent/dagger/cut/rend
 	penfactor = BLUNT_NO_PENFACTOR
+	smeltresult = /obj/item/ingot/silver
+	is_silver = TRUE
+	
+/obj/item/rogueweapon/huntingknife/idagger/steel/necra/ComponentInitialize()
+	AddComponent(\
+		/datum/component/silverbless,\
+		pre_blessed = BLESSING_NONE,\
+		silver_type = SILVER_TENNITE,\
+		added_force = 0,\
+		added_blade_int = 50,\
+		added_int = 50,\
+		added_def = 2,\
+	)
