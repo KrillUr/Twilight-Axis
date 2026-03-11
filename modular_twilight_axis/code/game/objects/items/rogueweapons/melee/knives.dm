@@ -110,7 +110,7 @@
 /obj/item/rogueweapon/huntingknife/idagger/steel/necra/ComponentInitialize()
 	AddComponent(\
 		/datum/component/silverbless,\
-		pre_blessed = BLESSING_NONE,\
+		pre_blessed = BLESSING_TENNITE,\
 		silver_type = SILVER_TENNITE,\
 		added_force = 0,\
 		added_blade_int = 50,\
