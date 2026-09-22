@@ -82,9 +82,9 @@
 	if (!(istype(H.patron, /datum/patron/divine/astrata)))	//astratan crusade
 		to_chat(H, span_warning("Astrata, the Absolute Order of the lands embraces me; We shall take what is rightfully ours, For she wills it."))
 		H.set_patron(/datum/patron/divine/astrata)
-	head = /obj/item/clothing/head/roguetown/helmet/heavy/crusader
+	head = /obj/item/clothing/head/roguetown/helmet/heavy/astratahelm/cleric
 	wrists = /obj/item/clothing/neck/roguetown/psicross/silver/astrata
-	cloak = /obj/item/clothing/cloak/cape/crusader
+	cloak = /obj/item/clothing/cloak/templar/astratancleric
 	backr = /obj/item/rogueweapon/shield/tower/metal
 	id = /obj/item/clothing/ring/silver
 	gloves = /obj/item/clothing/gloves/roguetown/plate
@@ -147,9 +147,9 @@
 /datum/outfit/job/roguetown/crusader/cleric/pre_equip(mob/living/carbon/human/H)
 	..()
 	to_chat(H, span_warning("Astrata, the Absolute Order of the lands embraces me; We shall take what is rightfully ours, For she wills it."))
-	head = /obj/item/clothing/head/roguetown/helmet/heavy/crusader
+	head = /obj/item/clothing/head/roguetown/helmet/heavy/astratan
 	wrists = /obj/item/clothing/neck/roguetown/psicross/astrata
-	cloak = /obj/item/clothing/cloak/cape/crusader
+	cloak = /obj/item/clothing/cloak/templar/astratancleric
 	id = /obj/item/clothing/ring/silver
 	gloves = /obj/item/clothing/gloves/roguetown/chain
 	neck = /obj/item/clothing/neck/roguetown/chaincoif/full
@@ -214,9 +214,9 @@
 	if (!(istype(H.patron, /datum/patron/divine/astrata)))	//astratan crusade
 		to_chat(H, span_warning("Astrata, the Absolute Order of the lands embraces me; We shall take what is rightfully ours, For she wills it."))
 		H.set_patron(/datum/patron/divine/astrata)
-	head = /obj/item/clothing/head/roguetown/helmet/heavy/crusader
+	head = /obj/item/clothing/head/roguetown/helmet/heavy/astratan
 	wrists = /obj/item/clothing/neck/roguetown/psicross/astrata
-	cloak = /obj/item/clothing/cloak/cape/crusader
+	cloak = /obj/item/clothing/cloak/templar/astratancleric
 	backr = /obj/item/rogueweapon/shield/tower/metal
 	id = /obj/item/clothing/ring/silver
 	gloves = /obj/item/clothing/gloves/roguetown/chain
@@ -274,9 +274,9 @@
 		to_chat(H, span_warning("Astrata, the Absolute Order of the lands embraces me; We shall take what is rightfully ours, For she wills it."))
 		H.set_patron(/datum/patron/divine/astrata)
 
-	head = /obj/item/clothing/head/roguetown/helmet/heavy/crusader
+	head = /obj/item/clothing/head/roguetown/helmet/heavy/astratan
 	wrists = /obj/item/clothing/neck/roguetown/psicross/astrata
-	cloak = /obj/item/clothing/cloak/cape/crusader
+	cloak = /obj/item/clothing/cloak/templar/astratancleric
 	backr = /obj/item/rogueweapon/shield/tower/metal
 	id = /obj/item/clothing/ring/silver
 	gloves = /obj/item/clothing/gloves/roguetown/chain
@@ -333,9 +333,9 @@
 	if (!(istype(H.patron, /datum/patron/divine/astrata)))	//astratan crusade
 		to_chat(H, span_warning("Astrata, the Absolute Order of the lands embraces me; We shall take what is rightfully ours, For she wills it."))
 		H.set_patron(/datum/patron/divine/astrata)
-	head = /obj/item/clothing/head/roguetown/helmet/heavy/crusader
+	head = /obj/item/clothing/head/roguetown/helmet/heavy/astratan
 	wrists = /obj/item/clothing/neck/roguetown/psicross/astrata
-	cloak = /obj/item/clothing/cloak/cape/crusader
+	cloak = /obj/item/clothing/cloak/templar/astratancleric
 	backr = /obj/item/rogueweapon/shield/tower/metal
 	id = /obj/item/clothing/ring/silver
 	gloves = /obj/item/clothing/gloves/roguetown/chain
