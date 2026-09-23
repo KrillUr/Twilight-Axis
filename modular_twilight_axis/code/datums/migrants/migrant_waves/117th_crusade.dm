@@ -207,7 +207,7 @@
 	maximum_possible_slots = 1
 	outfit = /datum/outfit/job/roguetown/crusader/paladin
 	cmode_music = 'sound/music/cmode/church/combat_astrata.ogg'
-	traits_applied = list(TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED)
+	traits_applied = list(TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED, TRAIT_BADTRAINER)
 	category_tags = list(CTAG_CRUSADE_PALADIN)
 	subclass_stats = list(
 		STATKEY_STR = 2,
