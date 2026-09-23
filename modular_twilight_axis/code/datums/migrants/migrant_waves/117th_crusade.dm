@@ -69,8 +69,9 @@
 
 	subclass_stats = list(
 		STATKEY_STR = 2,
-		STATKEY_CON = 2,
+		STATKEY_CON = 3,
 		STATKEY_WIL = 3,
+		STATKEY_INT = 2,
 		STATKEY_PER = 2,
 	)
 
@@ -204,7 +205,7 @@
 /datum/advclass/crusade/crusader_paladin
 	name = "Crusader Paladin"
 	tutorial = "Paladin of the true faith, you came from Valoria on a crusade to bring divine order in this forsaken lands. For the glory of astrata!"
-	maximum_possible_slots = 1
+	maximum_possible_slots = 2
 	outfit = /datum/outfit/job/roguetown/crusader/paladin
 	cmode_music = 'sound/music/cmode/church/combat_astrata.ogg'
 	traits_applied = list(TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED, TRAIT_BADTRAINER)
