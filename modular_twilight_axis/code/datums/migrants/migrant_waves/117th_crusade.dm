@@ -73,6 +73,7 @@
 		STATKEY_WIL = 3,
 		STATKEY_INT = 2,
 		STATKEY_PER = 2,
+		STATKEY_SPD = -1,
 	)
 
 	subclass_virtues = list(
