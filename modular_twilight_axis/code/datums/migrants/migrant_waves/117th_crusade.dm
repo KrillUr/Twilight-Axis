@@ -6,7 +6,8 @@
 /datum/migrant_wave/crusade
 	name = "The 117th Holy Crusade"
 	track = MIGRANT_TRACK_SPECIAL
-	weight = 20
+	weight = 6
+	min_round_time = 40 MINUTES
 	min_pop = 45
 	max_spawns = 1
 	triumph_threshold = 100
@@ -65,6 +66,7 @@
 	outfit = /datum/outfit/job/roguetown/crusader/captain
 	cmode_music = 'sound/music/cmode/church/combat_astrata.ogg'
 	traits_applied = list(TRAIT_NOBLE, TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED)
+	min_pq = 40
 	category_tags = list(CTAG_CRUSADER)
 
 	subclass_stats = list(
@@ -136,6 +138,7 @@
 	outfit = /datum/outfit/job/roguetown/crusader/cleric
 	cmode_music = 'sound/music/cmode/church/combat_astrata.ogg'
 	traits_applied = list(TRAIT_MEDIUMARMOR, TRAIT_STEELHEARTED, TRAIT_RITUALIST)
+	min_pq = 30
 	category_tags = list(CTAG_CRUSADE_CLERIC)
 
 	subclass_stats = list(
@@ -210,6 +213,7 @@
 	outfit = /datum/outfit/job/roguetown/crusader/paladin
 	cmode_music = 'sound/music/cmode/church/combat_astrata.ogg'
 	traits_applied = list(TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED, TRAIT_BADTRAINER)
+	min_pq = 30
 	category_tags = list(CTAG_CRUSADE_PALADIN)
 	subclass_stats = list(
 		STATKEY_STR = 2,
@@ -279,6 +283,7 @@
 	outfit = /datum/outfit/job/roguetown/crusader/footman
 	cmode_music = 'sound/music/cmode/church/combat_astrata.ogg'
 	traits_applied = list(TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED)
+	min_pq = 20
 	category_tags = list(CTAG_CRUSADER)
 	subclass_stats = list(
 		STATKEY_STR = 2,
@@ -342,6 +347,7 @@
 	outfit = /datum/outfit/job/roguetown/crusader/marksman
 	cmode_music = 'sound/music/cmode/church/combat_astrata.ogg'
 	traits_applied = list(TRAIT_MEDIUMARMOR, TRAIT_STEELHEARTED)
+	min_pq = 20
 	category_tags = list(CTAG_CRUSADER)
 	subclass_stats = list(
 		STATKEY_STR = 2,
