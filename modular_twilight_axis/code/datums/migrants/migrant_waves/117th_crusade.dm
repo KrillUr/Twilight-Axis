@@ -16,37 +16,37 @@
 	)
 	optional_roles = list(
 		/datum/migrant_role/crusade_cleric = 1,
-		/datum/migrant_role/crusade_paladin = 1,
-		/datum/migrant_role/crusader = 3,
+		/datum/migrant_role/crusade_paladin = 2,
+		/datum/migrant_role/crusader = 2,
 	)
-	greet_text = "Divine Order sweeps trough the lands, claiming the land for the one true faith! You came from the Valoria to bring Pantheon's light and glory for yourself."
+	greet_text = "Divine Order sweeps trough the lands, claiming the land for the one true faith! Your order came from the Valoria to bring Astratan radiant light, and a little fortune for yourself."
 
 /datum/migrant_role/crusader
 	name = "117th Crusader"
 	allowed_sexes = list(MALE, FEMALE)
 	forbidden_races = list(RACES_CONSTRUCT RACES_DESPISED)
-	greet_text = "Crusader of the true faith, you came from Valoria on a crusade to bring divine order in this forsaken lands. For the glory of astrata!"
+	greet_text = "Crusader of the true faith, your order came from Valoria on a crusade to bring divine order in this sun-forsaken lands. For the glory of astrata!"
 	advclass_cat_rolls = list(CTAG_CRUSADER = 20)
 
 /datum/migrant_role/crusade_captain
 	name = "117th Crusade Captain"
 	allowed_sexes = list(MALE, FEMALE)
 	forbidden_races = list(RACES_CONSTRUCT RACES_DESPISED)
-	greet_text = "Crusade Leader of the true faith, you came from Valoria on a crusade to bring divine order in this forsaken lands. For the glory of astrata!"
+	greet_text = "Crusade Leader of the true faith, your order came from Valoria on a crusade to bring divine order in this sun-forsaken lands. For the glory of astrata!"
 	advclass_cat_rolls = list(CTAG_CRUSADE_CAPTAIN = 20)
 
 /datum/migrant_role/crusade_cleric
 	name = "117th Crusade Cleric"
 	allowed_sexes = list(MALE, FEMALE)
 	forbidden_races = list(RACES_CONSTRUCT RACES_DESPISED)
-	greet_text = "Cleric of the true faith, you came from Valoria on a crusade to bring divine order in this forsaken lands. For the glory of astrata!"
+	greet_text = "Zealous believer of the true faith, your order came from Valoria on a crusade to bring divine order in this sun-forsaken lands. For the glory of astrata!"
 	advclass_cat_rolls = list(CTAG_CRUSADE_CLERIC = 20)
 
 /datum/migrant_role/crusade_paladin
 	name = "117th Crusade Paladin"
 	allowed_sexes = list(MALE, FEMALE)
 	forbidden_races = list(RACES_CONSTRUCT RACES_DESPISED)
-	greet_text = "Paladin of the true faith, you came from Valoria on a crusade to bring divine order in this forsaken lands. For the glory of astrata!"
+	greet_text = "Stallwart warrior of the true faith, your order came from Valoria on a crusade to bring divine order in this sun-forsaken lands. For the glory of astrata!"
 	advclass_cat_rolls = list(CTAG_CRUSADE_PALADIN = 20)
 
 /datum/advclass/crusade
@@ -257,7 +257,7 @@
 	pants = /obj/item/clothing/under/roguetown/platelegs
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 	belt = /obj/item/storage/belt/rogue/leather/plaquegold
-	beltl = /obj/item/rogueweapon/mace/steel/holyseemace
+	beltl = /obj/item/rogueweapon/mace/steel/holyseemace/sunburst
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/fluted
 	backl = /obj/item/storage/backpack/rogue/satchel
@@ -273,7 +273,7 @@
 
 /datum/advclass/crusade/crusader_footman
 	name = "Crusader Footman"
-	tutorial = "Heavily-armoured crusader of the true faith, you came from Valoria on a crusade to bring divine order in this forsaken lands. For the glory of astrata!"
+	tutorial = "Heavily-armoured warrior of the true faith, you came from Valoria on a crusade to bring divine order in this forsaken lands. For the glory of astrata!"
 	outfit = /datum/outfit/job/roguetown/crusader/footman
 	cmode_music = 'sound/music/cmode/church/combat_astrata.ogg'
 	traits_applied = list(TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED)
