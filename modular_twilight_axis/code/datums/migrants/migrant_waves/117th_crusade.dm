@@ -20,7 +20,7 @@
 		/datum/migrant_role/crusade_paladin = 2,
 		/datum/migrant_role/crusader = 2,
 	)
-	greet_text = "Divine Order sweeps trough the lands, claiming the land for the one true faith! Your order came from the Valoria to bring Astratan radiant light, and a little fortune for yourself."
+	greet_text = "Храбрые воители истинной веры, последователи Солнечного Тирана. Ваш крестовый поход начался из Валории, вне оков и норм Валорийской Церкви Неделимых. Пока трусы прикрывающиеся волей богов не решаются принести свет Десяти там, где сейчас царит тьма, истинноверующие не согласные с нерешительностью Церкви собрались в 117ый крестовый поход. Церковь отказала знатному лорду, предводителю вашего похода, во всякой помощи, но это вас не остановит. Насаждайте истинную веру, пополняйте ваши запасы оружейного серебра и монет из злата. Путь ваш не близок, но покуда светит солнце, вы с него не сойдёте."
 
 /datum/migrant_role/crusader
 	name = "117th Crusader"
