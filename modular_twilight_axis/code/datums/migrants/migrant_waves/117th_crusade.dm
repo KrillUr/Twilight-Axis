@@ -88,7 +88,6 @@
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/swords = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/shields = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/swimming = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/riding = SKILL_LEVEL_JOURNEYMAN,
@@ -142,20 +141,17 @@
 	category_tags = list(CTAG_CRUSADE_CLERIC)
 
 	subclass_stats = list(
-		STATKEY_STR = 1,
-		STATKEY_CON = 2,
+		STATKEY_CON = 3,
 		STATKEY_WIL = 2,
-		STATKEY_INT = 2,
+		STATKEY_INT = 3,
 		STATKEY_SPD = 1,
 	)
 
 	subclass_skills = list(
-		/datum/skill/combat/crossbows = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/shields = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/riding = SKILL_LEVEL_MASTER,
@@ -190,7 +186,7 @@
 	belt = /obj/item/storage/belt/rogue/leather/plaquegold
 	beltl = /obj/item/rogueweapon/scabbard/sword/noble
 	beltr = /obj/item/storage/belt/rogue/surgery_bag/full
-	r_hand = /obj/item/rogueweapon/sword
+	r_hand = /obj/item/rogueweapon/mace/steel/holyseemace/sunburst
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor
 	armor = /obj/item/clothing/cloak/tabard/crusader/astrata
 	backl = /obj/item/storage/backpack/rogue/satchel
@@ -212,7 +208,7 @@
 	maximum_possible_slots = 2
 	outfit = /datum/outfit/job/roguetown/crusader/paladin
 	cmode_music = 'sound/music/cmode/church/combat_astrata.ogg'
-	traits_applied = list(TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED, TRAIT_BADTRAINER)
+	traits_applied = list(TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED)
 	min_pq = 30
 	category_tags = list(CTAG_CRUSADE_PALADIN)
 	subclass_stats = list(
@@ -228,7 +224,6 @@
 	)
 
 	subclass_skills = list(
-		/datum/skill/combat/crossbows = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/swords = SKILL_LEVEL_EXPERT,
@@ -240,7 +235,8 @@
 		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/maces = SKILL_LEVEL_MASTER,
+		/datum/skill/combat/maces = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/whipsflails = SKILL_LEVEL_EXPERT,
 		/datum/skill/magic/holy = SKILL_LEVEL_APPRENTICE,
 	)
 
@@ -263,7 +259,7 @@
 	pants = /obj/item/clothing/under/roguetown/platelegs
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 	belt = /obj/item/storage/belt/rogue/leather/plaquegold
-	beltl = /obj/item/rogueweapon/mace/steel/holyseemace/sunburst
+	beltl = /obj/item/rogueweapon/flail/sflail
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/fluted
 	backl = /obj/item/storage/backpack/rogue/satchel
@@ -297,7 +293,6 @@
 		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/shields = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
@@ -329,8 +324,8 @@
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy
 	belt = /obj/item/storage/belt/rogue/leather/plaquegold
 	beltl = /obj/item/rogueweapon/scabbard/sword
-	r_hand = /obj/item/rogueweapon/sword/short
-	l_hand = /obj/item/rogueweapon/spear/boar
+	r_hand = /obj/item/rogueweapon/mace/cudgel
+	l_hand = /obj/item/rogueweapon/spear/partizan
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor
 	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/heavy
 	backl = /obj/item/storage/backpack/rogue/satchel
@@ -363,7 +358,7 @@
 		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/shields = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/knives = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
@@ -402,6 +397,8 @@
 	backpack_contents = list(
 		/obj/item/storage/belt/rogue/pouch/coins/mid = 1,
 		/obj/item/flashlight/flare/torch/lantern = 1,
+		/obj/item/rogueweapon/huntingknife/idagger/steel = 1,
+		/obj/item/rogueweapon/scabbard/sheath = 1,
 	)
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T0, passive_gain = CLERIC_REGEN_MINOR, devotion_limit = CLERIC_REQ_0)	//Capped to T0 miracles.
