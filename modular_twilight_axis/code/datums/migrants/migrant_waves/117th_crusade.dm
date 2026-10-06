@@ -200,8 +200,6 @@
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T4, passive_gain = CLERIC_REGEN_MAJOR, devotion_limit = CLERIC_REQ_4)	//Capped to T3 miracles.
 
-// Old loadout, heavy armor, T2, but worse stats.
-
 /datum/advclass/crusade/crusader_paladin
 	name = "Crusader Paladin"
 	tutorial = "Paladin of the true faith, you came from Valoria on a crusade to bring divine order in this forsaken lands. For the glory of astrata!"
@@ -270,8 +268,6 @@
 	)
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_MINOR, devotion_limit = CLERIC_REQ_2)	//Capped to T2 miracles.
-
-// Footman. Heavy armor essentially old loadout. Loses T2, but gets heavy armor.
 
 /datum/advclass/crusade/crusader_footman
 	name = "Crusader Footman"
